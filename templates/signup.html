@@ -1,0 +1,41 @@
+{% extends 'base.html'%}
+{% block title %}
+    Sign Up Page
+{% endblock %}
+
+
+
+{% block content %}
+<body class="text-center">
+<div class="container">
+<form method= "POST" class="form-signup" style="color:white" >
+    {{ form.hidden_tag() }}
+    <img class="mb-4" src="https://www.logolynx.com/images/logolynx/ca/ca39900f2ce9c1e1b5f1ff388eb07645.jpeg" style="width:100px ; padding: 10px;">
+     <h1 class="h3 mb-3 font-weight-normal">
+          Please Create Your Account
+     </h1>
+     <br>
+        {{form.username.label()}} 
+        {{form.username(class="form-control", placeholder="User Name")}}
+
+        {{form.email_address.label()}} 
+        {{form.email_address(class="form-control", placeholder="Email Address")}}
+
+        {{form.password1.label}} 
+        {{form.password1(class="form-control", placeholder="Password")}}
+
+        {{form.password2.label}} 
+        {{form.password2(class="form-control", placeholder="Confirm Password")}}
+    
+    </br>
+
+        {{form.submit(class="btn btn-lg btn-block btn-primary")}}
+    
+</form>
+</div>
+</body>
+
+
+
+{% endblock %}
+

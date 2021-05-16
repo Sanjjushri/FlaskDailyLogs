@@ -1,0 +1,28 @@
+{% extends 'base.html'%}
+{% block title %}
+    Daily Logs
+{% endblock %}
+{% block content %}
+<body class="text-center">
+<div class="container">
+<form method= "POST" class="form-logs" style="color:white" >
+    {{ form.hidden_tag() }}
+    <img class="mb-4" src="https://www.logolynx.com/images/logolynx/ca/ca39900f2ce9c1e1b5f1ff388eb07645.jpeg" style="width:100px ; padding: 10px;">
+     <h1 class="h3 mb-3 font-weight-normal">
+          Add your logs here
+     </h1>
+     <br>
+        {{form.task.label()}} 
+        {{form.task(class="form-control", placeholder="Enter Task")}}
+        {{form.start_time.label()}} 
+        {{form.start_time(class="form-control", placeholder="Start time")}}
+        {{form.end_time.label}} 
+        {{form.end_time(class="form-control", placeholder="End time")}}
+        {{form.expenses.label}} 
+        {{form.expenses(class="form-control", placeholder="Expenses")}}
+     </br>
+        {{form.add_task(class="btn btn-lg btn-block btn-primary")}}
+</form>
+</div>
+</body>
+{% endblock %}
