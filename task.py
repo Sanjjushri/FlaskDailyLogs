@@ -1,7 +1,9 @@
-from flask import Flask, render_template
+from flask import Flask, render_template,  request,redirect, url_for
 from flask_sqlalchemy import SQLAlchemy
-from flask_wtf import FlaskForm
-from wtforms import StringField, PasswordField, SubmitField
+from flask_wtf import form
+from wtforms.fields.core import IntegerField, StringField
+from forms import SignUpForm, DailyLogsForm
+from flask import Blueprint
 
 app = Flask(__name__, template_folder='templates')
 app.config['SQLALCHEMY_DATABASE_URI']="sqlite:///task.db"
@@ -28,12 +30,7 @@ class Item(db.Model):
 
 
 
-class SignUp(FlaskForm):
-    username = StringField(label='username')
-    email= StringField(lable='email')
-    password1= PasswordField(lable='password1')
-    passwoord2= PasswordField(lable='password2')
-    submit = SubmitField(lable='submit')
+
 
 @app.route('/')
 @app.route('/home')
@@ -52,13 +49,37 @@ def status_update():
 def login_page():
     return render_template("login.html")
 
-@app.route('/signup')
-def sign_up():
-    return render_template("sign.html")
+@app.route('/signup', methods=['GET', 'POST'])
+def signup():
+    form= SignUpForm()
+    if form.is_submitted():
+       result= request.form
+       return render_template('status.html', result=result)
+    if form.errors != {}: #if there are not errors from the validations
+        for err_msg in form.errors.values():
+            print(f'There was n error with creating a user: {err_msg}')
+    return render_template("signup.html", form = form)
 
 @app.route('/contact')
 def contact_page():
     return render_template("contact.html")
+
+
+@app.route('/dailylogs', methods=['GET','POST'])
+def dailylogs():
+    form=  DailyLogsForm()
+    if form.is_submitted():
+        result= request.form
+        return render_template('update.html', result=result)
+    return render_template('dailylogs.html', form=form)
+
+
+
+
+
+
+
+
 
 
 if __name__== "__main__":
